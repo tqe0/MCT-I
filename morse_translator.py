@@ -20,6 +20,8 @@ def main():
             "blank": "",
         "option 2 ": "morse > english"}
 
+    reverse_dictionary = {v: k for k, v in morse_code_dictionary.items()}
+
     def printoptions(options):
         for k,v in options.items():
             if "blank" in k:
@@ -39,10 +41,14 @@ def main():
         for character in user_text.upper():
             if character == " ":
                 morse_code += "/ "
-            else:
+            elif character in morse_code_dictionary:
                 morse_code += morse_code_dictionary[character] + " "
+            else:
+                morse_code += "? "
 
         print(morse_code)
+
+    
 
     elif user_choice == "2":
         morse = input("enter morse: ")
@@ -51,9 +57,10 @@ def main():
         for part in morse.split(" "):
             if part == "/":
                 text += " "
+            elif part in reverse_dictionary:
+                text += reverse_dictionary[part]
             elif part:
-                idx = list(morse_code_dictionary.values()).index(part)
-                text += list(morse_code_dictionary.keys())[idx]
+                text += "?"
 
         print(text)
     else:
